@@ -142,62 +142,62 @@ function AutoUpdateApp({onNavigate}) {
         }
 
         //Step 3: Update to the Participants with Weeks(all) table
-        const weekTable = base.getTableByNameIfExists('Participants by week(All)');
-        const weekField = weekTable.getField('Week#');
-        const weekOptions = weekField.options.choices;
-        const participantTable = base.getTableByNameIfExists('All Participants with Weeks');
-        const participantsWithWeeks = await weekTable.selectRecordsAsync();
+        // const weekTable = base.getTableByNameIfExists('Participants by week(All)');
+        // const weekField = weekTable.getField('Week#');
+        // const weekOptions = weekField.options.choices;
+        // const participantTable = base.getTableByNameIfExists('All Participants with Weeks');
+        // const participantsWithWeeks = await weekTable.selectRecordsAsync();
         
 
         // First pass: Handle all "Core Time" rows
-        for (let row of rowsToImport) {
-            const classText = row['Class'] || '';
-            const weekName = extractWeekFromClass(classText);
+        // for (let row of rowsToImport) {
+        //     const classText = row['Class'] || '';
+        //     const weekName = extractWeekFromClass(classText);
 
-            if (weekName && classText.includes('Core Time')) {
-                const { first, last } = splitFullName(row['Student']);
-                const weekOption = weekOptions.find(opt => opt.name === weekName);
+        //     if (weekName && classText.includes('Core Time')) {
+        //         const { first, last } = splitFullName(row['Student']);
+        //         const weekOption = weekOptions.find(opt => opt.name === weekName);
 
-                if (!weekOption) {
-                    console.warn(`⚠️ Week choice "${weekName}" not found in Week# field`);
-                    continue;
-                }
+        //         if (!weekOption) {
+        //             console.warn(`⚠️ Week choice "${weekName}" not found in Week# field`);
+        //             continue;
+        //         }
 
-                const participantId = await findParticipantRecordId(first, last, participantTable);
-                if (!participantId) {
-                    console.warn(`❌ No matching participant for ${first} ${last}`);
-                    continue;
-                }
+        //         const participantId = await findParticipantRecordId(first, last, participantTable);
+        //         if (!participantId) {
+        //             console.warn(`❌ No matching participant for ${first} ${last}`);
+        //             continue;
+        //         }
 
-                // Check if entry already exists
-                const exists = checkBeforeAdd && [...participantsWithWeeks.records].some(
-                    r =>
-                        r.getCellValue("First Name")?.trim() === first &&
-                        r.getCellValue("Last Name")?.trim() === last &&
-                        r.getCellValue("Week#")?.name === weekName
-                );
+        //         // Check if entry already exists
+        //         const exists = checkBeforeAdd && [...participantsWithWeeks.records].some(
+        //             r =>
+        //                 r.getCellValue("First Name")?.trim() === first &&
+        //                 r.getCellValue("Last Name")?.trim() === last &&
+        //                 r.getCellValue("Week#")?.name === weekName
+        //         );
 
-                if (exists) {
-                    console.log(`Core Time already exists for ${first} ${last} in ${weekName}`);
-                    continue;
-                }
+        //         if (exists) {
+        //             console.log(`Core Time already exists for ${first} ${last} in ${weekName}`);
+        //             continue;
+        //         }
 
-                await weekTable.createRecordAsync({
-                    'First Name': first,
-                    'Last Name': last,
-                    'Week#': { name: weekOption.name },
-                    'Link to All Par with Weeks': [{ id: participantId }],
-                });
+        //         await weekTable.createRecordAsync({
+        //             'First Name': first,
+        //             'Last Name': last,
+        //             'Week#': { name: weekOption.name },
+        //             'Link to All Par with Weeks': [{ id: participantId }],
+        //         });
 
-                summaryList.push({
-                    first,
-                    last,
-                    weeks: [weekOption.name],
-                    extended: false
-                });
+        //         summaryList.push({
+        //             first,
+        //             last,
+        //             weeks: [weekOption.name],
+        //             extended: false
+        //         });
                 
-            }
-        }
+        //     }
+        // }
 
         // Second pass: Handle all "Extended Care" updates
         for (let row of rowsToImport) {
