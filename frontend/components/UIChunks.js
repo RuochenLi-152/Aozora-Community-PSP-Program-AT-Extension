@@ -7,7 +7,7 @@ export function MissingStudentBanner({ student, onClose, formUrl, onNavigate }) 
     return (
         <Box marginBottom={3} backgroundColor="#fff3cd" padding={3} borderRadius={4} border="thick" borderColor="yellow">
             <Text color="orange" fontWeight="bold">
-                ⚠️ Student "{student.first} {student.last}" not found in the database.
+                Student "{student.first} {student.last}" not found in the database.
             </Text>
             <Text>Please create a record for this student before importing.</Text>
             <Box marginTop={2}>
@@ -24,7 +24,7 @@ export function MissingStudentBanner({ student, onClose, formUrl, onNavigate }) 
                         fontWeight: 'bold',
                     }}
                 >
-                    ➕ Open Student Form
+                     Open Student Form
                 </a>
             </Box>
             
@@ -32,7 +32,7 @@ export function MissingStudentBanner({ student, onClose, formUrl, onNavigate }) 
                     variant="secondary"
                     onClick={() => onNavigate && onNavigate('add-student')}
                 >
-                    ➕ Add via Upload
+                     Add via Upload
                 </Button>
 
             <Button variant="primary" marginTop={3} onClick={onClose}>
