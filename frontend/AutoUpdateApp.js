@@ -5,7 +5,6 @@ import {
     Text,
     Button,
     useBase,
-    TablePickerSynced
 } from '@airtable/blocks/ui';
 import { useGlobalConfig } from '@airtable/blocks/ui';
 import Papa from 'papaparse';
@@ -54,25 +53,6 @@ function AutoUpdateApp({ onNavigate }) {
             window.removeEventListener('dragleave', handleDragLeave);
         };
     }, []);
-
-    // const tablePicker = (
-    //     <Box marginBottom={3}>
-    //         <Text fontWeight="bold">Target Table:</Text>
-    //         <TablePickerSynced globalConfigKey="targetTable" />
-    //     </Box>
-    // );
-
-    // if (table && table.name.trim() !== "Enrollsy Import") {
-    //     return (
-    //         <Box padding={3}>
-    //             <Text fontWeight="bold" marginBottom={2}>
-    //                 Upload CSV to Auto-Clean for: {base.name}
-    //             </Text>
-    //             {tablePicker}
-    //             <Text color="red" marginTop={2}>⚠️ Please select the "Enrollsy Import" table to continue.</Text>
-    //         </Box>
-    //     );
-    // }
 
     const handleFiles = (files) => {
         const file = files[0];
