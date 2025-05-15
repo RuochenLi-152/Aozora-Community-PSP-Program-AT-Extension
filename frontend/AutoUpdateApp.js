@@ -17,6 +17,7 @@ function AutoUpdateApp({ onNavigate }) {
     const globalConfig = useGlobalConfig();
     const selectedTableId = globalConfig.get("targetTable");
     const table = base.getTableByIdIfExists(selectedTableId);
+    const formUrl = "https://airtable.com/appJeOfBr9YbqvNXZ/pagJLHpFMpnQSpWT1/form";
 
     const [csvData, setCsvData] = useState([]);
     const [filename, setFilename] = useState('');
@@ -54,24 +55,24 @@ function AutoUpdateApp({ onNavigate }) {
         };
     }, []);
 
-    const tablePicker = (
-        <Box marginBottom={3}>
-            <Text fontWeight="bold">Target Table:</Text>
-            <TablePickerSynced globalConfigKey="targetTable" />
-        </Box>
-    );
+    // const tablePicker = (
+    //     <Box marginBottom={3}>
+    //         <Text fontWeight="bold">Target Table:</Text>
+    //         <TablePickerSynced globalConfigKey="targetTable" />
+    //     </Box>
+    // );
 
-    if (table && table.name.trim() !== "Enrollsy Import") {
-        return (
-            <Box padding={3}>
-                <Text fontWeight="bold" marginBottom={2}>
-                    Upload CSV to Auto-Clean for: {base.name}
-                </Text>
-                {tablePicker}
-                <Text color="red" marginTop={2}>⚠️ Please select the "Enrollsy Import" table to continue.</Text>
-            </Box>
-        );
-    }
+    // if (table && table.name.trim() !== "Enrollsy Import") {
+    //     return (
+    //         <Box padding={3}>
+    //             <Text fontWeight="bold" marginBottom={2}>
+    //                 Upload CSV to Auto-Clean for: {base.name}
+    //             </Text>
+    //             {tablePicker}
+    //             <Text color="red" marginTop={2}>⚠️ Please select the "Enrollsy Import" table to continue.</Text>
+    //         </Box>
+    //     );
+    // }
 
     const handleFiles = (files) => {
         const file = files[0];
@@ -103,7 +104,7 @@ function AutoUpdateApp({ onNavigate }) {
                 r.getCellValue("Last Name")?.trim() === last
             );
             if (!match) {
-                setMissingStudent({first, last});
+                setMissingStudent({ first, last });
                 console.warn(`Student not found: ${first} ${last}`);
                 continue;
             }
@@ -127,7 +128,7 @@ function AutoUpdateApp({ onNavigate }) {
         }
 
         setAddedRecordsSummary(summaryList);
-        alert(`✅ Updated ${summaryList.length} student(s).`);
+        alert(`Updated ${summaryList.length} student(s).`);
     };
 
     const resetUpload = () => {
@@ -146,9 +147,9 @@ function AutoUpdateApp({ onNavigate }) {
                 Upload Enrollsy .csv file below to update student class and days
             </Text>
 
-            {tablePicker}
+            {/* {tablePicker} */}
 
-            {missingStudent && MissingStudentBanner(
+            {missingStudent && (
                 <MissingStudentBanner
                     student={missingStudent}
                     formUrl={formUrl}
@@ -159,7 +160,7 @@ function AutoUpdateApp({ onNavigate }) {
 
             {!table ? (
                 <Text color="red" marginTop={2}>
-                    ⚠️ No table selected.
+                    No table selected.
                 </Text>
             ) : (
                 <>
@@ -190,7 +191,7 @@ function AutoUpdateApp({ onNavigate }) {
                             <Text fontWeight="bold">Update Summary:</Text>
                             {addedRecordsSummary.map((line, index) => (
                                 <Box key={index} marginTop={1}>
-                                    <Text>✅ {line}</Text>
+                                    <Text> {line}</Text>
                                 </Box>
                             ))}
                         </Box>
