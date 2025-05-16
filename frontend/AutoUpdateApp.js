@@ -127,7 +127,6 @@ function AutoUpdateApp({ onNavigate }) {
                 Upload Enrollsy .csv file below to update student class and days
             </Text>
 
-            {/* {tablePicker} */}
 
             {missingStudent && (
                 <MissingStudentBanner
