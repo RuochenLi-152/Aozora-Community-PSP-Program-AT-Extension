@@ -1,4 +1,3 @@
-// components/UIChunks.js
 
 import React from 'react';
 import { Box, Text, Button } from '@airtable/blocks/ui';
