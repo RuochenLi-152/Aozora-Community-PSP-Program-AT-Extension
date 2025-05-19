@@ -13,9 +13,8 @@ import { MissingStudentBanner, FileDropZone, ImportActions } from './components/
 
 function AutoUpdateApp({ onNavigate }) {
     const base = useBase();
-    const globalConfig = useGlobalConfig();
-    const selectedTableId = globalConfig.get("targetTable");
-    const table = base.getTableByIdIfExists(selectedTableId);
+    // const globalConfig = useGlobalConfig();
+    const table = base.getTableByNameIfExists('Enrollsy Import');
     const formUrl = "https://airtable.com/appJeOfBr9YbqvNXZ/pagJLHpFMpnQSpWT1/form";
 
     const [csvData, setCsvData] = useState([]);
