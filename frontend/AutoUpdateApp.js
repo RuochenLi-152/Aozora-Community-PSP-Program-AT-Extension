@@ -8,7 +8,7 @@ import {
 } from '@airtable/blocks/ui';
 import Papa from 'papaparse';
 import { splitFullName } from './helpers/studentUtils';
-import { MissingStudentBanner, FileDropZone, ImportActions } from './components/UIChunks';
+import { MissingStudentBanner, FileDropZone, ImportActions, BackgroundSet } from './components/UIChunks';
 
 function AutoUpdateApp({ onNavigate }) {
     const base = useBase();
@@ -115,14 +115,15 @@ function AutoUpdateApp({ onNavigate }) {
     };
 
     return (
-        <Box padding={3}>
-            <Button onClick={() => onNavigate('home')} marginBottom={3}>
-                ← Back
-            </Button>
+        <BackgroundSet>
+            <Box padding={3}>
+                <Button onClick={() => onNavigate('home')} marginBottom={3}>
+                    ← Back
+                </Button>
 
-            <Text fontWeight="bold" marginBottom={4}>
-                Upload Enrollsy .csv file below to update student class and days
-            </Text>
+                <Text fontWeight="bold" fontSize={4} marginBottom={4} lineHeight={1.6}>
+                    Upload Enrollsy .csv file below to update student class and days
+                </Text>
 
 
             {missingStudent && (
@@ -134,47 +135,40 @@ function AutoUpdateApp({ onNavigate }) {
                 /> 
             )}
 
-            {!table ? (
-                <Text color="red" marginTop={2}>
-                    No table selected.
-                </Text>
-            ) : (
-                <>
-                    <FileDropZone
-                        isDragging={isDragging}
-                        onClick={() => inputRef.current?.click()}
+                <FileDropZone
+                    isDragging={isDragging}
+                    onClick={() => inputRef.current?.click()}
+                />
+
+                <input
+                    ref={inputRef}
+                    type="file"
+                    accept=".csv"
+                    style={{ display: 'none' }}
+                    onChange={(e) => handleFiles(e.target.files)}
+                />
+
+                {filename && (
+                    <ImportActions
+                        filename={filename}
+                        rowCount={csvData.length}
+                        onImport={handleStartImport}
+                        onReset={resetUpload}
                     />
+                )}
 
-                    <input
-                        ref={inputRef}
-                        type="file"
-                        accept=".csv"
-                        style={{ display: 'none' }}
-                        onChange={(e) => handleFiles(e.target.files)}
-                    />
-
-                    {filename && (
-                        <ImportActions
-                            filename={filename}
-                            rowCount={csvData.length}
-                            onImport={handleStartImport}
-                            onReset={resetUpload}
-                        />
-                    )}
-
-                    {addedRecordsSummary.length > 0 && (
-                        <Box marginTop={3} padding={3} border="default" backgroundColor="#f8f9fa">
-                            <Text fontWeight="bold">Update Summary:</Text>
-                            {addedRecordsSummary.map((line, index) => (
-                                <Box key={index} marginTop={1}>
-                                    <Text> {line}</Text>
-                                </Box>
-                            ))}
-                        </Box>
-                    )}
-                </>
-            )}
-        </Box>
+                {addedRecordsSummary.length > 0 && (
+                    <Box marginTop={3} padding={3} border="default" backgroundColor="#f8f9fa">
+                        <Text fontWeight="bold">Update Summary:</Text>
+                        {addedRecordsSummary.map((line, index) => (
+                            <Box key={index} marginTop={1}>
+                                <Text> {line}</Text>
+                            </Box>
+                        ))}
+                    </Box>
+                )}
+            </Box>
+        </BackgroundSet>
     );
 }
 

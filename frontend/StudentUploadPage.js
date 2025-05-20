@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Box, Text, Button, useBase } from '@airtable/blocks/ui';
 import Papa from 'papaparse';
-import { FileDropZone, ImportActions } from './components/UIChunks';
+import { FileDropZone, ImportActions, BackgroundSet } from './components/UIChunks';
 import { splitFullName, studentExists } from './helpers/studentUtils';
 import { parseDOB } from './helpers/dateUtils';
 
@@ -135,41 +135,43 @@ function StudentUploadPage({ onNavigate }) {
     
 
     return (
-        <Box padding={3}>
-            <Text fontWeight="bold" fontSize={4} marginBottom={4}>
-                Upload Enrollsy .csv file to Add Students
-            </Text>
-
+        <BackgroundSet>
             <Button
-                marginBottom={3}
+                margin={3}
                 variant="default"
                 onClick={() => onNavigate('home')}
             >
                 ← Back
             </Button>
 
-            <FileDropZone
-                isDragging={isDragging}
-                onClick={() => inputRef.current?.click()}
-            />
+            <Box padding={3}>
+                <Text fontWeight="bold" fontSize={4} marginBottom={4}>
+                    Upload Enrollsy .csv file to Add Students
+                </Text>
 
-            <input
-                ref={inputRef}
-                type="file"
-                accept=".csv"
-                style={{ display: 'none' }}
-                onChange={(e) => handleFiles(e.target.files)}
-            />
-
-            {filename && (
-                <ImportActions
-                    filename={filename}
-                    rowCount={csvData.length}
-                    onImport={handleUpload}
-                    onReset={resetUpload}
+                <FileDropZone
+                    isDragging={isDragging}
+                    onClick={() => inputRef.current?.click()}
                 />
-            )}
-        </Box>
+
+                <input
+                    ref={inputRef}
+                    type="file"
+                    accept=".csv"
+                    style={{ display: 'none' }}
+                    onChange={(e) => handleFiles(e.target.files)}
+                />
+
+                {filename && (
+                    <ImportActions
+                        filename={filename}
+                        rowCount={csvData.length}
+                        onImport={handleUpload}
+                        onReset={resetUpload}
+                    />
+                )}
+            </Box>
+        </BackgroundSet>
     );
 }
 

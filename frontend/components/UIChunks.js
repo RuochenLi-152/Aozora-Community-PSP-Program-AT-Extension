@@ -86,3 +86,32 @@ export function ImportActions({ filename, rowCount, onImport, onReset }) {
         </Box>
     );
 }
+
+export function BackgroundSet({ children }) {
+    return (
+        <Box
+            minHeight="100vh"
+            position="relative"
+            style={{
+                backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTur58fTBJ0KVV3IZl76LUuXk9gEWQmIVkRag&s')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                overflow: 'hidden',
+            }}
+        >
+            <Box
+                position="absolute"
+                top={0}
+                left={0}
+                width="100%"
+                height="100%"
+                backgroundColor="rgba(255, 255, 255, 0.7)"
+                zIndex={0}
+            />
+            <Box position="relative" zIndex={1}>
+                {children}
+            </Box>
+        </Box>
+    );
+}
