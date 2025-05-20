@@ -6,14 +6,12 @@ import {
     Button,
     useBase,
 } from '@airtable/blocks/ui';
-import { useGlobalConfig } from '@airtable/blocks/ui';
 import Papa from 'papaparse';
 import { splitFullName } from './helpers/studentUtils';
 import { MissingStudentBanner, FileDropZone, ImportActions } from './components/UIChunks';
 
 function AutoUpdateApp({ onNavigate }) {
     const base = useBase();
-    // const globalConfig = useGlobalConfig();
     const table = base.getTableByNameIfExists('Enrollsy Import');
     const formUrl = "https://airtable.com/appJeOfBr9YbqvNXZ/pagJLHpFMpnQSpWT1/form";
 
