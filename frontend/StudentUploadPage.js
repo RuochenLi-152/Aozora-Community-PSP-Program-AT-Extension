@@ -63,7 +63,7 @@ function StudentUploadPage({ onNavigate }) {
                 );
         
                 setCsvData(validRows);
-                console.log("📥 Loaded student CSV:", validRows);
+                console.log("Loaded student CSV:", validRows);
             },
         });
         
@@ -84,9 +84,6 @@ function StudentUploadPage({ onNavigate }) {
         for (let row of csvData) {
 
             if (!row['Student']) continue;
-            // if (row['Student'] === 'Student') {
-            //     continue;
-            // }
             // Use your existing helper to split the student full name
             const { first, last } = splitFullName(row['Student']);
     
