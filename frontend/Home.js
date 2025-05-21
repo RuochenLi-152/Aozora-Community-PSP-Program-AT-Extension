@@ -41,7 +41,7 @@ export function Home({ onNavigate }) {
                     fontFamily: 'sans-serif',
                     fontWeight: 'bold'
                     }}>
-                    Welcome to Aozora Summer Camp Automation Helper
+                    Welcome to Aozora Preschool Program Automation Helper
                 </Text>
 
                 <Button
