@@ -84,20 +84,17 @@ function StudentUploadPage({ onNavigate }) {
         for (let row of csvData) {
 
             if (!row['Student']) continue;
-            // Use your existing helper to split the student full name
             const { first, last } = splitFullName(row['Student']);
     
             const exists = await studentExists(first, last, studentTable);
             if (exists) continue;
     
-            // Convert age string to integer (7)
             let age = null;
             if (row['Age']) {
                 const match = row['Age'].match(/^(\d+)y/);
                 age = match ? parseInt(match[1]) : null;
             }
     
-            // Prepare the formatted record
             const newRecord = {
                 'Participant First Name': first,
                 'Participant Last Name': last,
