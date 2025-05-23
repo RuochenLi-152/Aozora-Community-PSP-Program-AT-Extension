@@ -10,9 +10,9 @@ import Papa from 'papaparse';
 import { splitFullName } from './helpers/studentUtils';
 import { MissingStudentBanner, FileDropZone, ImportActions, BackgroundSet } from './components/UIChunks';
 
-function AutoUpdateApp({ onNavigate }) {
+function AutoUpdateApp({ onNavigate, externalCsvDataForSchedule }) {
     const base = useBase();
-    const table = base.getTableByNameIfExists('Enrollsy Import');
+    // const table = base.getTableByNameIfExists('Enrollsy Import');
     const formUrl = "https://airtable.com/appJeOfBr9YbqvNXZ/pagJLHpFMpnQSpWT1/form";
 
     const [csvData, setCsvData] = useState([]);
@@ -50,6 +50,36 @@ function AutoUpdateApp({ onNavigate }) {
             window.removeEventListener('dragleave', handleDragLeave);
         };
     }, []);
+
+    useEffect(() => {
+        if (!externalCsvDataForSchedule) return;
+    
+        setFilename(externalCsvDataForSchedule.name);
+    
+        Papa.parse(externalCsvDataForSchedule, {
+            header: true,
+            skipEmptyLines: true,
+            complete: function (results) {
+                const cleanedData = [];
+                let lastStudent = '';
+                let lastEnrolled = '';
+    
+                for (let row of results.data) {
+                    const currentStudent = row['Student']?.trim();
+                    if (currentStudent) lastStudent = currentStudent;
+                    else row['Student'] = lastStudent;
+    
+                    const currentEnrolled = row['Enrolled']?.trim();
+                    if (currentEnrolled) lastEnrolled = currentEnrolled;
+                    else row['Enrolled'] = lastEnrolled;
+    
+                    if (row['Student']) cleanedData.push(row);
+                }
+    
+                setCsvData(cleanedData);
+            },
+        });
+    }, [externalCsvDataForSchedule]);
 
     const handleFiles = (files) => {
         const file = files[0];
