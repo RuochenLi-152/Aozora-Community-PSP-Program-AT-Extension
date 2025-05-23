@@ -1,4 +1,4 @@
-// Split "Last, First" into separate fields
+// Change the format from Enrollsy name to base fields
 export function splitFullName(fullName) {
     if (!fullName.includes(',')) return { first: '', last: '' };
 
@@ -6,7 +6,7 @@ export function splitFullName(fullName) {
     return { first, last };
 }
 
-// Check if student exists in "Student Basic Info" table
+
 export async function studentExists(firstName, lastName, studentTable) {
     const query = await studentTable.selectRecordsAsync({ fields: ['Participant First Name', 'Participant Last Name'] });
 
