@@ -1,0 +1,21 @@
+
+var ReactDOM = require('react-dom');
+var React = require('react');
+var ReactDOMServer = require('react-dom/server');
+
+window['_airtableReact'] = React;
+window['_airtableReactDOM'] = ReactDOM;
+window['_airtableReactDOMServer'] = ReactDOMServer;
+window['_airtableBlockCodeVersion'] = 'd91fdab80ea8fab0796af3adf57b117daf6749ae';
+var didRun = false;
+window['_airtableRunBlock'] = function runBlock() {
+    if (didRun) {
+        console.log('Refusing to re-run block');
+        return;
+    }
+    didRun = true;
+    
+    // Requiring the entry point file runs user code. Be sure to do any setup
+    // above this line.
+    require("./../frontend/index.js");
+};
