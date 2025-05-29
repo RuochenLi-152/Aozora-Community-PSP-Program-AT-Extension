@@ -49,7 +49,7 @@ export function InstructionsPage({ onNavigate }) {
                 </>
             ) : (
                 <>
-                    <Text marginBottom={2}>1. Enrollsy の「Students」タブから適切なビューでCSVをダウンロードしてください。</Text>
+                    <Text marginBottom={2}>1. Enrollsyの「Students」タブから、適切なビュー（「PSP info」または「Roster information」ビュー）を選択してCSVファイルをダウンロードしてください。拡張機能にアップロードする前に、CSVファイルの内容を確認することをおすすめします。</Text>
                     <Text marginBottom={2}>2. 「Add Students」ページに移動し、CSVファイルをアップロードします。新しい学生情報が「Student Basic Info」テーブルに自動追加されます。</Text>
                     <Text marginBottom={2}>3. 「Update Schedule」ページに移動し、CSVファイルをアップロードするとスケジュールが更新されます。対象テーブル:「All Participants with Weeks」「Participants by Week」</Text>
                     <Text marginBottom={2}>4. 完了後、アップロードボックスの下に更新内容のサマリーが表示されます。</Text>
