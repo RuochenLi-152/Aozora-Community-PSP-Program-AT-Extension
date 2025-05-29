@@ -28,7 +28,7 @@ export function InstructionsPage({ onNavigate }) {
             {!isJap? (
                 <>
                 <Text marginBottom={2}>
-                1. Download the csv file from Enrollsy, under "Students" tab with proper view (PSP info / Roster information views). Checking the csv file before uploading to the extension is recommended.
+                1. Download the csv file from Enrollsy, under "Students" tab with proper view (PSP info). Checking the csv file before uploading to the extension is recommended.
                 </Text>
 
                 <Text marginBottom={2}>
